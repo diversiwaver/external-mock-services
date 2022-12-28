@@ -1,6 +1,5 @@
 ﻿
 using MassTransit;
-using TSOMessageHub.Models;
 using TSOMessageHub.XML;
 
 namespace TSOMessageHub.Consumers

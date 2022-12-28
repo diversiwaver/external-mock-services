@@ -1,14 +1,12 @@
 ﻿using Quartz;
-
-namespace TSOMessageHub;
-
 using System;
 using System.Data.SqlTypes;
 using System.Xml;
 using System.Xml.Serialization;
 using MassTransit;
-using TSOMessageHub.Models;
 using TSOMessageHub.XML;
+
+namespace TSOMessageHub;
 
 public class SendXML : IJob
 {

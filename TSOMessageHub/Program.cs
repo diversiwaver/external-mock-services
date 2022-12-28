@@ -2,7 +2,6 @@
 using TSOMessageHub;
 using MassTransit;
 using RabbitMQ.Client;
-using TSOMessageHub.Models;
 using TSOMessageHub.Consumers;
 using TSOMessageHub.XML;
 
@@ -14,7 +13,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             x.AddConsumer<SignalConsumer>(c =>
             {
                 c.UseConcurrencyLimit(1);
-                //c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
+                c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
             });
             x.UsingRabbitMq((context, cfg) =>
             {
@@ -22,6 +21,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                     h.Username(host.Configuration["RabbitMQUsername"]);
                     h.Password(host.Configuration["RabbitMQPassword"]);
                 });
+                // Uncomment in case you want to debug and consume your own messages
                 cfg.ReceiveEndpoint("tso-signal-list", x =>
                 {
                     x.ConfigureConsumeTopology = false;
@@ -35,7 +35,8 @@ IHost host = Host.CreateDefaultBuilder(args)
                 cfg.Publish<AfrrSignal>(f =>
                 {
                     f.ExchangeType = ExchangeType.Topic;
-                }); 
+                });
+                
                 cfg.Send<AfrrSignal>(c => c.UseRoutingKeyFormatter(f => "AfrrSignal"));
                 cfg.ConfigureEndpoints(context);
             });
