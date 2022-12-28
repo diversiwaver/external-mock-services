@@ -20,13 +20,11 @@
     <None Remove="Serilog" />
     <None Remove="Serilog.Sinks.Console" />
     <None Remove="MassTransit.RabbitMQ" />
-    <None Remove="Models\" />
     <None Remove="XML\" />
     <None Remove="Consumers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Jobs\" />
-    <Folder Include="Models\" />
     <Folder Include="XML\" />
     <Folder Include="Consumers\" />
   </ItemGroup>

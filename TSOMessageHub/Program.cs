@@ -4,6 +4,7 @@ using MassTransit;
 using RabbitMQ.Client;
 using TSOMessageHub.Models;
 using TSOMessageHub.Consumers;
+using TSOMessageHub.XML;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((host, services) =>
@@ -13,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             x.AddConsumer<SignalConsumer>(c =>
             {
                 c.UseConcurrencyLimit(1);
-                c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
+                //c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
             });
             x.UsingRabbitMq((context, cfg) =>
             {
@@ -24,31 +25,32 @@ IHost host = Host.CreateDefaultBuilder(args)
                 cfg.ReceiveEndpoint("tso-signal-list", x =>
                 {
                     x.ConfigureConsumeTopology = false;
-                    x.Bind("TSOMessageHub.Models:HubSignal", s =>
+                    x.Bind("TSOMessageHub.XML:AfrrSignal", s =>
                     {
-                        s.RoutingKey = "123456";
+                        s.RoutingKey = "AfrrSignal";
                         s.ExchangeType = ExchangeType.Topic;
                     });
                     x.ConfigureConsumer<SignalConsumer>(context);
                 });
-                cfg.Publish<HubSignal>(f =>
+                cfg.Publish<AfrrSignal>(f =>
                 {
                     f.ExchangeType = ExchangeType.Topic;
-                });
-                cfg.Send<HubSignal>(c => c.UseRoutingKeyFormatter(f => f.Message.MessageId));
+                }); 
+                cfg.Send<AfrrSignal>(c => c.UseRoutingKeyFormatter(f => "AfrrSignal"));
                 cfg.ConfigureEndpoints(context);
             });
         });
         services.AddQuartz(q =>
         {
             q.UseMicrosoftDependencyInjectionJobFactory();
-            q.ScheduleJob<SendXML>(trigger => trigger.WithCronSchedule("0 * * ? * *"));
+            q.ScheduleJob<SendXML>(trigger =>
+                trigger.WithSimpleSchedule(SimpleScheduleBuilder.RepeatSecondlyForever(10))
+                );
         });
         services.AddQuartzHostedService(options =>
         {
             options.WaitForJobsToComplete = true;
         });
-
         //Add Logging
         services.AddLogging(configure =>
         {
