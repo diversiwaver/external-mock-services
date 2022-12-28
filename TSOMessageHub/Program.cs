@@ -10,11 +10,6 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         services.AddMassTransit(x =>
         {
-            x.AddConsumer<SignalConsumer>(c =>
-            {
-                c.UseConcurrencyLimit(1);
-                c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
-            });
             x.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host(host.Configuration["RabbitMQHost"], 5672, "ortfmwaf", h => {
@@ -22,6 +17,11 @@ IHost host = Host.CreateDefaultBuilder(args)
                     h.Password(host.Configuration["RabbitMQPassword"]);
                 });
                 // Uncomment in case you want to debug and consume your own messages
+                /*x.AddConsumer<SignalConsumer>(c =>
+                {
+                    c.UseConcurrencyLimit(1);
+                    c.UseMessageRetry(f => f.Intervals(TimeSpan.FromMilliseconds(250), TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(1000)));
+                });
                 cfg.ReceiveEndpoint("tso-signal-list", x =>
                 {
                     x.ConfigureConsumeTopology = false;
@@ -31,7 +31,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                         s.ExchangeType = ExchangeType.Topic;
                     });
                     x.ConfigureConsumer<SignalConsumer>(context);
-                });
+                });*/
                 cfg.Publish<AfrrSignal>(f =>
                 {
                     f.ExchangeType = ExchangeType.Topic;
@@ -45,7 +45,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             q.UseMicrosoftDependencyInjectionJobFactory();
             q.ScheduleJob<SendXML>(trigger =>
-                trigger.WithSimpleSchedule(SimpleScheduleBuilder.RepeatSecondlyForever(10))
+                trigger.WithSimpleSchedule(SimpleScheduleBuilder.RepeatSecondlyForever(4))
                 );
         });
         services.AddQuartzHostedService(options =>
