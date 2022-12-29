@@ -26,19 +26,19 @@ IHost host = Host.CreateDefaultBuilder(args)
                 /*cfg.ReceiveEndpoint("tso-signal-list", x =>
                 {
                     x.ConfigureConsumeTopology = false;
-                    x.Bind("TSOMessageHub.XML:AfrrSignal", s =>
+                    x.Bind("TSOMessageHub.XML:TSOSignal", s =>
                     {
-                        s.RoutingKey = "AfrrSignal";
+                        s.RoutingKey = "TSOSignal";
                         s.ExchangeType = ExchangeType.Topic;
                     });
                     x.ConfigureConsumer<SignalConsumer>(context);
                 });*/
-                cfg.Publish<AfrrSignal>(f =>
+                cfg.Publish<TSOSignal>(f =>
                 {
                     f.ExchangeType = ExchangeType.Topic;
                 });
                 
-                cfg.Send<AfrrSignal>(c => c.UseRoutingKeyFormatter(f => "AfrrSignal"));
+                cfg.Send<TSOSignal>(c => c.UseRoutingKeyFormatter(f => "TSOSignal"));
                 cfg.ConfigureEndpoints(context);
             });
         });

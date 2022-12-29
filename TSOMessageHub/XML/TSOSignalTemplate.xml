@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<AfrrSignal>
+<TSOSignal>
     <SignalId>1</SignalId>
     <BidId>123456</BidId>
     <ReceivedUTC>12-02-2022</ReceivedUTC>
     <QuantityMw>40</QuantityMw>
-</AfrrSignal>
+</TSOSignal>

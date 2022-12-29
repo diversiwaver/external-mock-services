@@ -7,26 +7,24 @@ namespace TSOMessageHub;
 
 public class SendXML : IJob
 {
-    private readonly ILogger<SendXML> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly char _separator = Path.DirectorySeparatorChar;
     private readonly string _projectPath = new Uri(Directory.GetCurrentDirectory()).LocalPath;
     private readonly static Random _random = new Random();
     private static decimal _quantityMw = 0;
     private static int _counter = 0;
-    private readonly AfrrSignal _signal;
+    private readonly TSOSignal _signal;
 
     public SendXML(ILogger<SendXML> logger, IPublishEndpoint publishEndpoint)
     { 
         _publishEndpoint = publishEndpoint;
-        _logger = logger;
         // Read the XML file into a string
-        string documentPath = $"{_separator}XML{_separator}SignalTemplate.xml";
+        string documentPath = $"{_separator}XML{_separator}TSOSignalTemplate.xml";
         string xmlString = File.ReadAllText(_projectPath + documentPath);
 
-        var serializer = new XmlSerializer(typeof(AfrrSignal));
+        var serializer = new XmlSerializer(typeof(TSOSignal));
         using StringReader reader = new(xmlString);
-        _signal = serializer.Deserialize(reader) as AfrrSignal ?? new AfrrSignal();
+        _signal = serializer.Deserialize(reader) as TSOSignal ?? new TSOSignal();
     }
 
     public async Task Execute(IJobExecutionContext context)
