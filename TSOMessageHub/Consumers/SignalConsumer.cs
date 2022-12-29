@@ -1,6 +1,6 @@
 ﻿
 using MassTransit;
-using TSOMessageHub.XML;
+using TSOMessageHub.DTOs;
 
 namespace TSOMessageHub.Consumers;
 	public class SignalConsumer : IConsumer<TSOSignal>

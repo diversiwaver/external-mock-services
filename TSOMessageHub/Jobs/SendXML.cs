@@ -1,7 +1,7 @@
 ﻿using Quartz;
 using System.Xml.Serialization;
 using MassTransit;
-using TSOMessageHub.XML;
+using TSOMessageHub.DTOs;
 
 namespace TSOMessageHub;
 

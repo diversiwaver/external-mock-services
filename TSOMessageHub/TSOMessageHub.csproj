@@ -28,4 +28,7 @@
     <Folder Include="XML\" />
     <Folder Include="Consumers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TSOMessageHub.DTOs\TSOMessageHub.DTOs.csproj" />
+  </ItemGroup>
 </Project>

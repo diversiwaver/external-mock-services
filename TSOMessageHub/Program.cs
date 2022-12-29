@@ -3,7 +3,7 @@ using TSOMessageHub;
 using MassTransit;
 using RabbitMQ.Client;
 using TSOMessageHub.Consumers;
-using TSOMessageHub.XML;
+using TSOMessageHub.DTOs;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((host, services) =>
@@ -26,7 +26,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                 /*cfg.ReceiveEndpoint("tso-signal-list", x =>
                 {
                     x.ConfigureConsumeTopology = false;
-                    x.Bind("TSOMessageHub.XML:TSOSignal", s =>
+                    x.Bind("TSOMessageHub.DTOs:TSOSignal", s =>
                     {
                         s.RoutingKey = "TSOSignal";
                         s.ExchangeType = ExchangeType.Topic;
