@@ -1,7 +1,4 @@
 ﻿using Quartz;
-using System;
-using System.Data.SqlTypes;
-using System.Xml;
 using System.Xml.Serialization;
 using MassTransit;
 using TSOMessageHub.XML;
@@ -28,10 +25,8 @@ public class SendXML : IJob
         string xmlString = File.ReadAllText(_projectPath + documentPath);
 
         var serializer = new XmlSerializer(typeof(AfrrSignal));
-        using (StringReader reader = new(xmlString))
-        {
-            _signal = serializer.Deserialize(reader) as AfrrSignal ?? new AfrrSignal();
-        }
+        using StringReader reader = new(xmlString);
+        _signal = serializer.Deserialize(reader) as AfrrSignal ?? new AfrrSignal();
     }
 
     public async Task Execute(IJobExecutionContext context)
