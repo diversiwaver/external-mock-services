@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-TSOMessageHub-116ad489-75c2-4813-8efe-1cba1051177b</UserSecretsId>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerIgnoreHeight>true</MinVerIgnoreHeight>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
