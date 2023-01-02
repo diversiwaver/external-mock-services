@@ -15,7 +15,7 @@ public class SendXML : IJob
     private static int _counter = 0;
     private readonly TSOSignal _signal;
 
-    public SendXML(ILogger<SendXML> logger, IPublishEndpoint publishEndpoint)
+    public SendXML(IPublishEndpoint publishEndpoint)
     { 
         _publishEndpoint = publishEndpoint;
         // Read the XML file into a string
