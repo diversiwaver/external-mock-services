@@ -1,9 +1,9 @@
 [msbuild]
-project = "../aFRR-Service/aFRR-Service.sln"
+project = "../External-Mock-Services.sln"
 configuration = "Release"
 [github]
 user = "diversiwaver"
-repo = "aFRR-NET"
+repo = "external-mock-services"
 
 [test]
 enable = false
