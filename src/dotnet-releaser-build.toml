@@ -1,8 +1,8 @@
 [msbuild]
-project = "../aFRR-Service/aFRR-Service.sln"
+project = "../External-Mock-Services.sln"
 [github]
 user = "diversiwaver"
-repo = "aFRR-NET"
+repo = "external-mock-services"
 [nuget]
 publish = false
 [test]
