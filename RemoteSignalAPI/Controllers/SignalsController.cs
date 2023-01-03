@@ -15,10 +15,10 @@ public class SignalsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("PostSignal")]
-    public async Task<ActionResult> PostSignal(SignalDTO signalDto)
+    [Route("SendSignal")]
+    public async Task<ActionResult> SendSignal(SignalDTO signalDto)
     {
-        _logger.LogInformation($"Signal {signalDto.Id} received Remote Signal API");
+        _logger.LogInformation($"Signal {signalDto.Id} received by Remote Signal API");
         return Ok();
     }
 }
