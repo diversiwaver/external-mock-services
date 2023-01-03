@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-TSOMessageHub-116ad489-75c2-4813-8efe-1cba1051177b</UserSecretsId>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerIgnoreHeight>true</MinVerIgnoreHeight>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Quartz" Version="3.5.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.5.0" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Jobs\" />
+    <None Remove="Quartz" />
+    <None Remove="Quartz.Extensions.Hosting" />
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.Console" />
+    <None Remove="MassTransit.RabbitMQ" />
+    <None Remove="XML\" />
+    <None Remove="Consumers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Jobs\" />
+    <Folder Include="XML\" />
+    <Folder Include="Consumers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TSOMessageHub.DTOs\TSOMessageHub.DTOs.csproj" />
+  </ItemGroup>
+</Project>
