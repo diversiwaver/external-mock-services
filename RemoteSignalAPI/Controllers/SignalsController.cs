@@ -14,11 +14,11 @@ public class SignalsController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("SendSignal")]
     public async Task<ActionResult> SendSignal(SignalDTO signalDto)
     {
-        _logger.LogInformation($"Signal {signalDto.Id} received by Remote Signal API");
+        _logger.LogInformation($"Signal with id {signalDto.Id} received by Remote Signal API");
         return Ok();
     }
 }
