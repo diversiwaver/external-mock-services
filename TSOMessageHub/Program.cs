@@ -2,7 +2,6 @@
 using TSOMessageHub;
 using MassTransit;
 using RabbitMQ.Client;
-using TSOMessageHub.Consumers;
 using TSOMessageHub.DTOs;
 
 IHost host = Host.CreateDefaultBuilder(args)

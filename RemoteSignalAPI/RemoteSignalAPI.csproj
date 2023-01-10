@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>RemoteSignalAPI</RootNamespace>
+    <UserSecretsId>cf118c33-a0e4-4aab-8697-efd2da7793cb</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />

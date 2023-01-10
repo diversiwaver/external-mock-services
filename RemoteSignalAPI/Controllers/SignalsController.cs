@@ -4,7 +4,7 @@ using WebAPI.DTOs;
 namespace RemoteSignalAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class SignalsController : ControllerBase
 {
     private readonly ILogger<SignalsController> _logger;
